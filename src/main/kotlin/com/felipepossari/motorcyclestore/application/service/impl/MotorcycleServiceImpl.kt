@@ -1,6 +1,7 @@
 package com.felipepossari.motorcyclestore.application.service.impl
 
 import com.felipepossari.motorcyclestore.application.entity.MotorcycleEntity
+import com.felipepossari.motorcyclestore.application.exception.EntityNotFoundException
 import com.felipepossari.motorcyclestore.application.model.MotorcycleDto
 import com.felipepossari.motorcyclestore.application.service.MotorcycleService
 import org.slf4j.Logger
@@ -30,7 +31,10 @@ class MotorcycleServiceImpl : MotorcycleService {
     }
 
     override fun readById(id: Long): MotorcycleDto {
-        TODO("Not yet implemented")
+        val bike = list.filter { it.id == id }
+                .map { buildDto(it) }
+                .firstOrNull()
+        return bike ?: throw EntityNotFoundException("Entity with id $id not found")
     }
 
     override fun read(): List<MotorcycleDto> {
