@@ -23,11 +23,26 @@ class MotorcycleServiceImpl : MotorcycleService {
     }
 
     override fun create(motorcycleDto: MotorcycleDto): MotorcycleDto {
-        TODO("Not yet implemented")
+        val lastId = list.map { it.id }.maxByOrNull { it!! } ?: 0
+        val entity = buildEntity(motorcycleDto, lastId + 1)
+        list.add(entity)
+        return buildDto(entity)
     }
 
     override fun update(motorcycleDto: MotorcycleDto): MotorcycleDto {
-        TODO("Not yet implemented")
+        list.filter { it.id == motorcycleDto.id }.firstOrNull()?.let {
+            val updatedBike = it.copy(brand = motorcycleDto.brand,
+                    model = motorcycleDto.model,
+                    cubicCylinder = motorcycleDto.cubicCylinder,
+                    manufactureYear = motorcycleDto.manufactureYear,
+                    modelYear = motorcycleDto.modelYear,
+                    price = motorcycleDto.price)
+            list.remove(it)
+            list.add(updatedBike)
+        } ?: run {
+            throw EntityNotFoundException("Entity with id ${motorcycleDto.id} not found")
+        }
+        return MotorcycleDto()
     }
 
     override fun readById(id: Long): MotorcycleDto {
@@ -39,12 +54,15 @@ class MotorcycleServiceImpl : MotorcycleService {
 
     override fun read(): List<MotorcycleDto> {
         log.info("Retrieving motorcycles from store")
-        val a = buildDtoList(list)
-        return buildDtoList(list)
+        return buildDtoList(list.sortedBy { it.id })
     }
 
     override fun delete(id: Long) {
-        TODO("Not yet implemented")
+        list.filter { it.id == id }.firstOrNull()?.let {
+            list.remove(it)
+        } ?: run {
+            throw EntityNotFoundException("Entity with id $id not found")
+        }
     }
 
 }
