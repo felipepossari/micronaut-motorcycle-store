@@ -21,6 +21,7 @@ micronaut {
         incremental(true)
         annotations("com.felipepossari.motorcyclestore.*")
     }
+
 }
 
 dependencies {
@@ -40,6 +41,9 @@ dependencies {
     testImplementation("org.testcontainers:mongodb")
 
     implementation("io.micronaut:micronaut-http-server-netty")
+
+    kapt("io.micronaut.openapi:micronaut-openapi:2.3.1")
+    implementation("io.swagger.core.v3:swagger-annotations")
 }
 
 
