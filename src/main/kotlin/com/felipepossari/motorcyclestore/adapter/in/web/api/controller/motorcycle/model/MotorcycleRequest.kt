@@ -1,6 +1,6 @@
-package com.felipepossari.motorcyclestore.adapter.`in`.controller.motorcycle.model
+package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model
 
-data class MotorcycleResponse(
+data class MotorcycleRequest(
         val id:Long? = 0,
         val brand: String = "",
         val model: String = "",

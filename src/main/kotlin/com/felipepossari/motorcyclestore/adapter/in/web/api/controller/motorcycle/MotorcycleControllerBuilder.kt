@@ -1,7 +1,7 @@
-package com.felipepossari.motorcyclestore.adapter.`in`.controller.motorcycle
+package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle
 
-import com.felipepossari.motorcyclestore.adapter.`in`.controller.motorcycle.model.MotorcycleRequest
-import com.felipepossari.motorcyclestore.adapter.`in`.controller.motorcycle.model.MotorcycleResponse
+import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleRequest
+import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleResponse
 import com.felipepossari.motorcyclestore.application.model.MotorcycleDto
 
 fun buildDto(request: MotorcycleRequest) =
