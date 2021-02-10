@@ -12,9 +12,12 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
+@Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/motorcycle")
 class MotorcycleController(private val service: MotorcycleService) {
 
@@ -34,6 +37,7 @@ class MotorcycleController(private val service: MotorcycleService) {
         return HttpResponse.ok(buildResponse(service.readById(id)))
     }
 
+    @Secured("admin")
     @Post(
             consumes = [MediaType.APPLICATION_JSON],
             produces = [MediaType.APPLICATION_JSON]
@@ -44,12 +48,14 @@ class MotorcycleController(private val service: MotorcycleService) {
         return HttpResponse.created(buildResponse(response))
     }
 
+    @Secured("admin")
     @Delete("/{id}")
     fun delete(@PathVariable id: Long): HttpResponse<MotorcycleResponse>{
         service.delete(id)
         return HttpResponse.noContent()
     }
 
+    @Secured("admin")
     @Put("/{id}")
     fun update(@PathVariable id: Long,
                @Body request: MotorcycleRequest): HttpResponse<MotorcycleResponse>{
