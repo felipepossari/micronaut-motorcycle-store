@@ -1,4 +1,4 @@
-package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model
+package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.base
 
 import io.micronaut.http.HttpStatus
 

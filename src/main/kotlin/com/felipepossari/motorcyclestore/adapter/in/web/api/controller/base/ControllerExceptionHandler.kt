@@ -1,6 +1,5 @@
 package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.base
 
-import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.ResultError
 import com.felipepossari.motorcyclestore.application.exception.EntityNotFoundException
 import io.micronaut.context.annotation.Requirements
 import io.micronaut.context.annotation.Requires

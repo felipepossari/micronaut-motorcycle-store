@@ -25,6 +25,8 @@ micronaut {
 }
 
 dependencies {
+    kapt("io.micronaut.openapi:micronaut-openapi:2.3.1")
+
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -33,20 +35,23 @@ dependencies {
     implementation("io.micronaut.grpc:micronaut-grpc-runtime")
     implementation("javax.annotation:javax.annotation-api")
     implementation("io.micronaut.mongodb:micronaut-mongo-sync")
+
+    implementation("io.micronaut:micronaut-http-server-netty")
+
+    implementation("io.swagger.core.v3:swagger-annotations")
+
+    implementation("io.micronaut.security:micronaut-security-jwt")
+    implementation("io.micronaut.security:micronaut-security-annotations")
+
+    implementation("io.micronaut:micronaut-http-client")
+
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testImplementation("io.micronaut:micronaut-http-client")
     testImplementation("org.testcontainers:testcontainers")
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mongodb")
-
-    implementation("io.micronaut:micronaut-http-server-netty")
-
-    kapt("io.micronaut.openapi:micronaut-openapi:2.3.1")
-    implementation("io.swagger.core.v3:swagger-annotations")
-
-    implementation("io.micronaut.security:micronaut-security-jwt")
-    implementation("io.micronaut.security:micronaut-security-annotations")
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.23.1")
 }
 
 
