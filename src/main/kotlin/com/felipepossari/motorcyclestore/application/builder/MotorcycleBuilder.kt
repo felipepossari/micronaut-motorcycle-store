@@ -14,6 +14,16 @@ fun buildDto(entity: MotorcycleEntity) =
                 price = entity.price
         )
 
+fun buildEntity(dto: MotorcycleDto) =
+        MotorcycleEntity(
+                brand = dto.brand,
+                model = dto.model,
+                cubicCylinder = dto.cubicCylinder,
+                manufactureYear = dto.manufactureYear,
+                modelYear = dto.modelYear,
+                price = dto.price
+        )
+
 fun buildEntity(dto: MotorcycleDto, id: Long) =
         MotorcycleEntity(
                 id = id,

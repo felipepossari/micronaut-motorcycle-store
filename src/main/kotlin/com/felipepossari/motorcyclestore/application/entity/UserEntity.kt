@@ -11,7 +11,7 @@ import javax.persistence.Table
 data class UserEntity(
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
-        val id: Long?,
+        val id: Long? = 0,
         val username: String = "",
         val password: String = ""
 ) {

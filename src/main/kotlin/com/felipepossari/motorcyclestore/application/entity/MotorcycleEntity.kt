@@ -10,7 +10,7 @@ import javax.persistence.Table
 @Table(name = "motorcycle")
 data class MotorcycleEntity(
         @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Long? = 0,
         val brand: String = "",
         val model: String = "",

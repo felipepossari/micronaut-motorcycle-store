@@ -3,6 +3,7 @@ package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorc
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.MotorcycleApi
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleRequest
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleResponse
+import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.CreateMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.service.MotorcycleService
 import io.micronaut.http.HttpResponse
@@ -16,7 +17,8 @@ import org.slf4j.LoggerFactory
 @Controller("/motorcycle")
 class MotorcycleController(
         private val service: MotorcycleService,
-        private val getAllUseCase: GetAllMotorcycleUseCase) : MotorcycleApi {
+        private val getAllUseCase: GetAllMotorcycleUseCase,
+        private val createUseCase: CreateMotorcycleUseCase) : MotorcycleApi {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
@@ -35,7 +37,7 @@ class MotorcycleController(
     @Secured("admin")
     override fun post(request: MotorcycleRequest): HttpResponse<MotorcycleResponse> {
         val dto = buildDto(request)
-        val response = service.create(dto)
+        val response = createUseCase.create(dto)
         return HttpResponse.created(buildResponse(response))
     }
 
