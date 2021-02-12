@@ -1,5 +1,8 @@
 package com.felipepossari.motorcyclestore.application.service.impl
 
+import com.felipepossari.motorcyclestore.application.builder.buildDto
+import com.felipepossari.motorcyclestore.application.builder.buildDtoList
+import com.felipepossari.motorcyclestore.application.builder.buildEntity
 import com.felipepossari.motorcyclestore.application.entity.MotorcycleEntity
 import com.felipepossari.motorcyclestore.application.exception.EntityNotFoundException
 import com.felipepossari.motorcyclestore.application.model.MotorcycleDto

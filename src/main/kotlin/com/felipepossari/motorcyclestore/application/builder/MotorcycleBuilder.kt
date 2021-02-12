@@ -1,4 +1,4 @@
-package com.felipepossari.motorcyclestore.application.service.impl
+package com.felipepossari.motorcyclestore.application.builder
 
 import com.felipepossari.motorcyclestore.application.entity.MotorcycleEntity
 import com.felipepossari.motorcyclestore.application.model.MotorcycleDto

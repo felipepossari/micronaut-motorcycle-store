@@ -1,8 +1,9 @@
 package com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle
 
+import com.felipepossari.motorcyclestore.adapter.`in`.web.api.MotorcycleApi
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleRequest
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleResponse
-import com.felipepossari.motorcyclestore.adapter.`in`.web.api.MotorcycleApi
+import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.service.MotorcycleService
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
@@ -13,7 +14,9 @@ import org.slf4j.LoggerFactory
 
 @Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/motorcycle")
-class MotorcycleController(private val service: MotorcycleService) : MotorcycleApi {
+class MotorcycleController(
+        private val service: MotorcycleService,
+        private val getAllUseCase: GetAllMotorcycleUseCase) : MotorcycleApi {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
@@ -21,7 +24,7 @@ class MotorcycleController(private val service: MotorcycleService) : MotorcycleA
 
     override fun getAll(): HttpResponse<List<MotorcycleResponse>> {
         log.info("Getting motorcycles")
-        return HttpResponse.ok(buildResponse(service.read()))
+        return HttpResponse.ok(buildResponse(getAllUseCase.execute()))
     }
 
     override fun getById(id: Long): HttpResponse<MotorcycleResponse> {
