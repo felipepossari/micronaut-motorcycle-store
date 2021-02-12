@@ -21,6 +21,13 @@ datasources:
     driverClassName: org.postgresql.Driver
     username: postgres
     password: '123456'
+    schema-generate: NONE
+    dialect: POSTGRES
+
+jpa:
+  default:
+    packages-to-scan:
+      - "com.felipepossari.motorcyclestore.application.entity"
 
 flyway:
   datasources:
