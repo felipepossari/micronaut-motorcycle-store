@@ -25,12 +25,12 @@ class AuthenticationProviderUserPassword : AuthenticationProvider {
         log.info("Authentication required. User: ${authenticationRequest?.identity} " +
                 "- Pass: ${authenticationRequest?.secret}")
         return Flowable.create({emmiter : FlowableEmitter<AuthenticationResponse> ->
-            if (authenticationRequest?.identity == "admin" && authenticationRequest?.secret == "123") {
+            if (authenticationRequest?.identity == "admin" && authenticationRequest.secret == "123") {
                 emmiter.onNext(UserDetails("user",
                         mutableListOf("admin", "operator"),
                         mutableMapOf<String, Any>("email" to "user@motorcycle.com", "phone" to "553512345-1234")))
                 emmiter.onComplete()
-            } else if (authenticationRequest?.identity == "user" && authenticationRequest?.secret == "123") {
+            } else if (authenticationRequest?.identity == "user" && authenticationRequest.secret == "123") {
                 emmiter.onNext(UserDetails("user",
                         mutableListOf("operator"),
                         mutableMapOf<String, Any>("email" to "user@motorcycle.com", "phone" to "553512345-1234")))
