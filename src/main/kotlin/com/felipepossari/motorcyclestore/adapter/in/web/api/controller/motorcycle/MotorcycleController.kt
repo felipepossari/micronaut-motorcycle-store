@@ -5,7 +5,7 @@ import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcy
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleResponse
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.CreateMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
-import com.felipepossari.motorcyclestore.application.service.MotorcycleService
+import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetMotorcycleByIdUseCase
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.security.annotation.Secured
@@ -16,9 +16,9 @@ import org.slf4j.LoggerFactory
 @Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/motorcycle")
 class MotorcycleController(
-        private val service: MotorcycleService,
         private val getAllUseCase: GetAllMotorcycleUseCase,
-        private val createUseCase: CreateMotorcycleUseCase) : MotorcycleApi {
+        private val createUseCase: CreateMotorcycleUseCase,
+        private val getByIdUseCase: GetMotorcycleByIdUseCase) : MotorcycleApi {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
@@ -31,19 +31,17 @@ class MotorcycleController(
 
     override fun getById(id: Long): HttpResponse<MotorcycleResponse> {
         log.info("Getting motorcycle by id")
-        return HttpResponse.ok(buildResponse(service.readById(id)))
+        return HttpResponse.ok(buildResponse(getByIdUseCase.execute(id)))
     }
 
     @Secured("admin")
     override fun post(request: MotorcycleRequest): HttpResponse<MotorcycleResponse> {
-        val dto = buildDto(request)
-        val response = createUseCase.create(dto)
+        val response = createUseCase.create(buildDto(request))
         return HttpResponse.created(buildResponse(response))
     }
 
     @Secured("admin")
     override fun delete(id: Long): HttpResponse<MotorcycleResponse> {
-        service.delete(id)
         return HttpResponse.noContent()
     }
 
@@ -51,7 +49,6 @@ class MotorcycleController(
     override fun update(id: Long,
                         request: MotorcycleRequest): HttpResponse<MotorcycleResponse> {
         val dto = buildDto(request, id)
-        val response = service.update(dto)
-        return HttpResponse.ok(buildResponse(response))
+        return HttpResponse.ok()
     }
 }
