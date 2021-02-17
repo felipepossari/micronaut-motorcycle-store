@@ -4,6 +4,7 @@ import com.felipepossari.motorcyclestore.adapter.`in`.web.api.MotorcycleApi
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleRequest
 import com.felipepossari.motorcyclestore.adapter.`in`.web.api.controller.motorcycle.model.MotorcycleResponse
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.CreateMotorcycleUseCase
+import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.DeleteMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetMotorcycleByIdUseCase
 import io.micronaut.http.HttpResponse
@@ -18,7 +19,8 @@ import org.slf4j.LoggerFactory
 class MotorcycleController(
         private val getAllUseCase: GetAllMotorcycleUseCase,
         private val createUseCase: CreateMotorcycleUseCase,
-        private val getByIdUseCase: GetMotorcycleByIdUseCase) : MotorcycleApi {
+        private val getByIdUseCase: GetMotorcycleByIdUseCase,
+        private val deleteUseCase: DeleteMotorcycleUseCase) : MotorcycleApi {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
@@ -42,6 +44,7 @@ class MotorcycleController(
 
     @Secured("admin")
     override fun delete(id: Long): HttpResponse<MotorcycleResponse> {
+        deleteUseCase.execute(id)
         return HttpResponse.noContent()
     }
 
