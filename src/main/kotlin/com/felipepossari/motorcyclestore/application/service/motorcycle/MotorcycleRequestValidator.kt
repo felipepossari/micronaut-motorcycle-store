@@ -12,7 +12,11 @@ class MotorcycleRequestValidator {
         val errors = mutableListOf<ErrorReason>()
         validateBrand(dto.brand)?.let { errors.add(it) }
         validateModel(dto.model)?.let { errors.add(it) }
-        if(errors.isNotEmpty()){
+        validateCubicCylinder(dto.cubicCylinder)?.let { errors.add(it) }
+        validateManufactureYear(dto.manufactureYear)?.let { errors.add(it) }
+        validateModelYear(dto.modelYear)?.let { errors.add(it) }
+        validatePrice(dto.price)?.let { errors.add(it) }
+        if (errors.isNotEmpty()) {
             throw InvalidArgumentException(errors)
         }
     }
@@ -31,5 +35,31 @@ class MotorcycleRequestValidator {
                 null
             }
 
+    private fun validateCubicCylinder(cubicCylinder: Int): ErrorReason? =
+            if (cubicCylinder <= 0) {
+                ErrorReason.MOTORCYCLE_INVALID_CUBIC_CYLINDER
+            } else {
+                null
+            }
 
+    private fun validateManufactureYear(manufactureYear: Int): ErrorReason? =
+            if (manufactureYear <= 0) {
+                ErrorReason.MOTORCYCLE_INVALID_MANUFACTURE_YEAR
+            } else {
+                null
+            }
+
+    private fun validateModelYear(modelYear: Int): ErrorReason? =
+            if (modelYear <= 0) {
+                ErrorReason.MOTORCYCLE_INVALID_MODEL_YEAR
+            } else {
+                null
+            }
+
+    private fun validatePrice(price: Double): ErrorReason? =
+            if (price <= 0) {
+                ErrorReason.MOTORCYCLE_INVALID_PRICE
+            } else {
+                null
+            }
 }
