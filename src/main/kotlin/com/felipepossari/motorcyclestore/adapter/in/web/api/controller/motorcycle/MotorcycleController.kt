@@ -7,6 +7,7 @@ import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.Create
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.DeleteMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetAllMotorcycleUseCase
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.GetMotorcycleByIdUseCase
+import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.UpdateMotorcycleUseCase
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Controller
 import io.micronaut.security.annotation.Secured
@@ -20,7 +21,8 @@ class MotorcycleController(
         private val getAllUseCase: GetAllMotorcycleUseCase,
         private val createUseCase: CreateMotorcycleUseCase,
         private val getByIdUseCase: GetMotorcycleByIdUseCase,
-        private val deleteUseCase: DeleteMotorcycleUseCase) : MotorcycleApi {
+        private val deleteUseCase: DeleteMotorcycleUseCase,
+        private val updateUseCase: UpdateMotorcycleUseCase) : MotorcycleApi {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.qualifiedName)
@@ -52,6 +54,7 @@ class MotorcycleController(
     override fun update(id: Long,
                         request: MotorcycleRequest): HttpResponse<MotorcycleResponse> {
         val dto = buildDto(request, id)
-        return HttpResponse.ok()
+        val updatedDto = updateUseCase.execute(dto)
+        return HttpResponse.ok(buildResponse(updatedDto))
     }
 }

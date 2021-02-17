@@ -8,12 +8,25 @@ import javax.inject.Singleton
 @Singleton
 class MotorcycleRequestValidator {
 
-    companion object{
+    companion object {
         private const val BRAND_MAX_LENGHT: Int = 255
         private const val MODEL_MAX_LENGHT: Int = 255
     }
 
     fun validateCreateRequest(dto: MotorcycleDto) {
+        val errors = mutableListOf<ErrorReason>()
+        validateBrand(dto.brand)?.let { errors.add(it) }
+        validateModel(dto.model)?.let { errors.add(it) }
+        validateCubicCylinder(dto.cubicCylinder)?.let { errors.add(it) }
+        validateManufactureYear(dto.manufactureYear)?.let { errors.add(it) }
+        validateModelYear(dto.modelYear)?.let { errors.add(it) }
+        validatePrice(dto.price)?.let { errors.add(it) }
+        if (errors.isNotEmpty()) {
+            throw InvalidArgumentException(errors)
+        }
+    }
+
+    fun validateUpdateRequest(dto: MotorcycleDto) {
         val errors = mutableListOf<ErrorReason>()
         validateBrand(dto.brand)?.let { errors.add(it) }
         validateModel(dto.model)?.let { errors.add(it) }
