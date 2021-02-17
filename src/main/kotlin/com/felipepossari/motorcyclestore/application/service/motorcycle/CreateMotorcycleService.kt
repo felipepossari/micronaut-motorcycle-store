@@ -8,9 +8,12 @@ import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.Create
 import javax.inject.Singleton
 
 @Singleton
-class CreateMotorcycleService(private val repository: MotorcycleRepository) : CreateMotorcycleUseCase {
-    override fun create(bike: MotorcycleDto): MotorcycleDto {
-        val entity = buildEntity(bike)
+class CreateMotorcycleService(
+        private val repository: MotorcycleRepository,
+        private val requestValidator: MotorcycleRequestValidator) : CreateMotorcycleUseCase {
+    override fun create(dto: MotorcycleDto): MotorcycleDto {
+        requestValidator.validateCreateRequest(dto)
+        val entity = buildEntity(dto)
         val newEntity = repository.save(entity)
         return buildDto(newEntity)
     }
