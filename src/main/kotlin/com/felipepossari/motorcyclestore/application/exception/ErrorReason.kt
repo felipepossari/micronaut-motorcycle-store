@@ -17,7 +17,9 @@ enum class ErrorReason(
     MOTORCYCLE_INVALID_CUBIC_CYLINDER(MOTORCYCLE.module, "003", "Cubic cylinder cannot be null or lower than zero"),
     MOTORCYCLE_INVALID_MANUFACTURE_YEAR(MOTORCYCLE.module, "004", "Manufacture year cannot be null or lower than zero"),
     MOTORCYCLE_INVALID_MODEL_YEAR(MOTORCYCLE.module, "005", "Model year cannot be null or lower than zero"),
-    MOTORCYCLE_INVALID_PRICE(MOTORCYCLE.module, "006", "Price cannot be null or lower than zero");
+    MOTORCYCLE_INVALID_PRICE(MOTORCYCLE.module, "006", "Price cannot be null or lower than zero"),
+
+    MOTORCYCLE_ID_NOT_FOUND(MOTORCYCLE.module, "015", "Motorcycle not found");
 
     val code: String get() = "$module$errorCode"
     

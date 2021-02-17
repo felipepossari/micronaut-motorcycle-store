@@ -2,7 +2,7 @@ package com.felipepossari.motorcyclestore.application.port.`in`.motorcycle
 
 import com.felipepossari.motorcyclestore.application.model.MotorcycleDto
 
-interface CreateMotorcycleUseCase {
+interface GetMotorcycleByIdUseCase {
 
-    fun create(dto: MotorcycleDto): MotorcycleDto
+    fun execute(id: Long): MotorcycleDto
 }
