@@ -8,6 +8,11 @@ import javax.inject.Singleton
 @Singleton
 class MotorcycleRequestValidator {
 
+    companion object{
+        private const val BRAND_MAX_LENGHT: Int = 255
+        private const val MODEL_MAX_LENGHT: Int = 255
+    }
+
     fun validateCreateRequest(dto: MotorcycleDto) {
         val errors = mutableListOf<ErrorReason>()
         validateBrand(dto.brand)?.let { errors.add(it) }
@@ -22,14 +27,14 @@ class MotorcycleRequestValidator {
     }
 
     private fun validateBrand(brand: String): ErrorReason? =
-            if (brand.isEmpty() || brand.length > 255) {
+            if (brand.isEmpty() || brand.length > BRAND_MAX_LENGHT) {
                 ErrorReason.MOTORCYCLE_INVALID_BRAND
             } else {
                 null
             }
 
     private fun validateModel(model: String): ErrorReason? =
-            if (model.isEmpty() || model.length > 255) {
+            if (model.isEmpty() || model.length > MODEL_MAX_LENGHT) {
                 ErrorReason.MOTORCYCLE_INVALID_MODEL
             } else {
                 null
