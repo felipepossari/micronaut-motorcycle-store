@@ -44,6 +44,8 @@ dependencies {
     implementation("io.micronaut.security:micronaut-security-annotations")
     implementation("io.micronaut.security:micronaut-security-jwt")
 
+    implementation("io.micronaut.kafka:micronaut-kafka")
+
     runtimeOnly("io.micronaut.sql:micronaut-jdbc-hikari")
 
     implementation("io.swagger.core.v3:swagger-annotations")
