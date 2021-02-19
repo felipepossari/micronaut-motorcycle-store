@@ -1,21 +1,21 @@
 package com.felipepossari.motorcyclestore.application.service.motorcycle
 
-import com.felipepossari.motorcyclestore.adapter.out.repository.MotorcycleRepository
 import com.felipepossari.motorcyclestore.application.entity.MotorcycleEntity
 import com.felipepossari.motorcyclestore.application.exception.EntityNotFoundException
 import com.felipepossari.motorcyclestore.application.exception.ErrorReason
 import com.felipepossari.motorcyclestore.application.port.`in`.motorcycle.DeleteMotorcycleUseCase
+import com.felipepossari.motorcyclestore.application.port.out.MotorcycleRepositoryPort
 import javax.inject.Singleton
 
 @Singleton
 class DeleteMotorcycleService(
-        private val repository: MotorcycleRepository) : DeleteMotorcycleUseCase {
+        private val repositoryPort: MotorcycleRepositoryPort) : DeleteMotorcycleUseCase {
 
     override fun execute(id: Long) {
         val bike = retrieveMotorcycle(id)
-        repository.delete(bike)
+        repositoryPort.delete(bike)
     }
 
     private fun retrieveMotorcycle(id: Long): MotorcycleEntity =
-            repository.findById(id).orElseThrow { throw EntityNotFoundException(ErrorReason.MOTORCYCLE_ID_NOT_FOUND) }
+            repositoryPort.findById(id) ?: throw EntityNotFoundException(ErrorReason.MOTORCYCLE_ID_NOT_FOUND)
 }
