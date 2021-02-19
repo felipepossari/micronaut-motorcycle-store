@@ -7,6 +7,4 @@ interface StockAmountPublisherPort {
     fun publishIncreaseStockMessage(motorcycleDto: MotorcycleDto)
 
     fun publishDecreaseStockMessage(motorcycleDto: MotorcycleDto)
-
-    fun publishUpdateStockMessage(motorcycleDto: MotorcycleDto)
 }
